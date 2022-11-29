@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/igor-pgmt/yobit-api/settings"
+	"github.com/vladivolo/yobit-api/settings"
 )
 
 // API is the Trade API that included in the main client

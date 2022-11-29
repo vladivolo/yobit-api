@@ -3,9 +3,9 @@ package trade
 import (
 	"encoding/json"
 
-	"github.com/igor-pgmt/yobit-api/apis/requests"
-	"github.com/igor-pgmt/yobit-api/responses"
-	"github.com/igor-pgmt/yobit-api/settings"
+	"github.com/vladivolo/yobit-api/apis/requests"
+	"github.com/vladivolo/yobit-api/responses"
+	"github.com/vladivolo/yobit-api/settings"
 )
 
 // GetInfo shows info about account's balance.

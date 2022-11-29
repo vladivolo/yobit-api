@@ -4,8 +4,8 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/igor-pgmt/yobit-api/apis/requests"
-	"github.com/igor-pgmt/yobit-api/settings"
+	"github.com/vladivolo/yobit-api/apis/requests"
+	"github.com/vladivolo/yobit-api/settings"
 )
 
 func (api *API) createLinkGetInfo() *url.Values {

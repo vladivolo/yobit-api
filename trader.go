@@ -1,7 +1,7 @@
 package trader
 
-import "github.com/igor-pgmt/yobit-api/apis/trade"
-import "github.com/igor-pgmt/yobit-api/apis/public"
+import "github.com/vladivolo/yobit-api/apis/trade"
+import "github.com/vladivolo/yobit-api/apis/public"
 
 // Client is a main struct for executing all the operations of the API
 type Client struct {
