@@ -1,4 +1,25 @@
-package responses
+package api
+
+type Trade struct {
+	Success uint8       `json:"success"`
+	Return  TradeReturn `json:"return"`
+	Error   string      `json:"error"`
+}
+
+type TradeReturn struct {
+	Received float64            `json:"received"` // amount of currency bought / sold
+	Remains  float64            `json:"remains"`  // amount of currency to buy / to sell
+	OrderID  int                `json:"order_id"` // created order ID
+	Funds    map[string]float64 `json:"funds"`    // funds active after request
+}
+
+func NewTrade() Trade {
+	return Trade{
+		Return: TradeReturn{
+			Funds: map[string]float64{},
+		},
+	}
+}
 
 type Trades struct {
 	Success  int                    `json:"success"`
@@ -14,11 +35,23 @@ type TradeData struct {
 	Timestamp int64   `json:"timestamp"` // transaction timestamp
 }
 
+type TradeSettings struct {
+	Pair   string  `json:"pair"`   // pair (example: ltc_btc)
+	Type   string  `json:"type"`   // transaction type (example: buy or sell)
+	Rate   float64 `json:"rate"`   // exchange rate for buying or selling (value: numeral)
+	Amount float64 `json:"amount"` // amount needed for buying or selling (value: numeral)
+}
+
+type TradesSettings struct {
+	Pair  string `json:"pair"`  // pair (example: ltc_btc)
+	Limit uint64 `json:"limit"` // limit stipulates size of withdrawal (on default 150 to 2000 maximum)
+}
+
 // NewTrades returns new structure for Trade response
 func NewTrades() Trades {
-	trades := Trades{}
-	trades.PairData = make(map[string][]TradeData)
-	return trades
+	return Trades{
+		PairData: map[string][]TradeData{},
+	}
 }
 
 // Separate separates asks and bids from the main result

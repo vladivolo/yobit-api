@@ -1,4 +1,10 @@
-package responses
+package api
+
+import ()
+
+type TickerSettings struct {
+	Pair string `json:"pair"` // pair (example: ltc_btc)
+}
 
 type Ticker struct {
 	Success  int `json:"success"`

@@ -1,4 +1,4 @@
-package responses
+package api
 
 type GetInfo struct {
 	Success uint8      `json:"success"`
