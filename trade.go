@@ -505,8 +505,6 @@ func (api *TradeAPI) prepareRequest(values *url.Values) (*http.Request, error) {
 
 // sendPost sends POST request to the TradeAPI server
 func (api *TradeAPI) sendPost(req *http.Request) (*http.Response, error) {
-	fmt.Println(req)
-
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
