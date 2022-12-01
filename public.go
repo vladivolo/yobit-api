@@ -25,7 +25,6 @@ func NewPublicAPI(api_key string, api_secret string) *PublicAPI {
 
 // Trades returns information about the last transactions of selected pairs.
 func (api *PublicAPI) Trades(t *TradesSettings) (Trades, error) {
-
 	values, link := api.createLinkTrades(t)
 
 	body, err := api.sendRequest(values, link)
@@ -44,7 +43,6 @@ func (api *PublicAPI) Trades(t *TradesSettings) (Trades, error) {
 
 // Info returns information about server time and active pairs.
 func (api *PublicAPI) Info() (Info, error) {
-
 	values, link := api.createLinkInfo()
 
 	body, err := api.sendRequest(values, link)
@@ -64,9 +62,23 @@ func (api *PublicAPI) Info() (Info, error) {
 	return info, err
 }
 
+// return first Ask & Bid
+func (api *PublicAPI) OpenInterest(symbol string) (float64, float64, error) {
+	ticker, err := api.Ticker(
+		&TickerSettings{
+			Pair: symbol,
+		})
+	if err != nil {
+		return 0, 0, err
+	}
+
+	tdata := ticker.PairData[symbol]
+
+	return tdata.Sell, tdata.Buy, nil
+}
+
 // Ticker provides statistic data for the last 24 hours.
 func (api *PublicAPI) Ticker(t *TickerSettings) (Ticker, error) {
-
 	values, link := api.createLinkTicker(t)
 
 	body, err := api.sendRequest(values, link)
@@ -85,7 +97,6 @@ func (api *PublicAPI) Ticker(t *TickerSettings) (Ticker, error) {
 
 // Depth returns information about lists of active orders for selected pairs.
 func (api *PublicAPI) Depth(t *DepthSettings) (Depth, error) {
-
 	values, link := api.createLinkDepth(t)
 
 	body, err := api.sendRequest(values, link)
@@ -125,7 +136,6 @@ func (api *PublicAPI) sendRequest(values *url.Values, link string) ([]byte, erro
 
 // prepareRequest creates link and prepares request to send
 func (api *PublicAPI) prepareRequest(values *url.Values, link string) (*http.Request, error) {
-
 	requestString := values.Encode()
 
 	req, err := http.NewRequest("POST", link, strings.NewReader(requestString))
@@ -138,7 +148,6 @@ func (api *PublicAPI) prepareRequest(values *url.Values, link string) (*http.Req
 
 // sendPost sends POST request to the API server
 func (api *PublicAPI) sendPost(req *http.Request) (*http.Response, error) {
-
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -149,7 +158,6 @@ func (api *PublicAPI) sendPost(req *http.Request) (*http.Response, error) {
 }
 
 func (api *PublicAPI) createLinkInfo() (*url.Values, string) {
-
 	values := url.Values{}
 	link := PublicApiLink + "info"
 
@@ -158,7 +166,6 @@ func (api *PublicAPI) createLinkInfo() (*url.Values, string) {
 }
 
 func (api *PublicAPI) createLinkTicker(th *TickerSettings) (*url.Values, string) {
-
 	values := url.Values{}
 	link := PublicApiLink + "ticker" + "/" + th.Pair
 
@@ -167,7 +174,6 @@ func (api *PublicAPI) createLinkTicker(th *TickerSettings) (*url.Values, string)
 }
 
 func (api *PublicAPI) createLinkDepth(th *DepthSettings) (*url.Values, string) {
-
 	values := url.Values{}
 
 	if th.Limit != 0 {
@@ -181,7 +187,6 @@ func (api *PublicAPI) createLinkDepth(th *DepthSettings) (*url.Values, string) {
 }
 
 func (api *PublicAPI) createLinkTrades(th *TradesSettings) (*url.Values, string) {
-
 	values := url.Values{}
 
 	if th.Limit != 0 {

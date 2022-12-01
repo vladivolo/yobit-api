@@ -5,6 +5,7 @@ import (
 	"crypto/sha512"
 	"encoding/hex"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -44,7 +45,7 @@ func (api *TradeAPI) GetInfo() (GetInfo, error) {
 		return GetInfo{}, err
 	}
 
-	return balance, err
+	return balance, nil
 }
 
 // Trade allows creating new orders.
@@ -504,6 +505,8 @@ func (api *TradeAPI) prepareRequest(values *url.Values) (*http.Request, error) {
 
 // sendPost sends POST request to the TradeAPI server
 func (api *TradeAPI) sendPost(req *http.Request) (*http.Response, error) {
+	fmt.Println(req)
+
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
@@ -525,6 +528,7 @@ func (api *TradeAPI) GetNonce(Key string) (int, error) {
 	api.Nonce++
 	err := api.WriteNonce(api.Nonce, nonceFileName)
 	if err != nil {
+		fmt.Println(err)
 		return 0, err
 	}
 

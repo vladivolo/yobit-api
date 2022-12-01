@@ -6,5 +6,5 @@ var DebugMode bool
 
 const (
 	PublicApiLink = "https://yobit.net/api/3/"
-	TradeApiLink  = "https://yobit.io/tapi/"
+	TradeApiLink  = "https://yobit.net/tapi/"
 )
