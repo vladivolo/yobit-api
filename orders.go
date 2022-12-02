@@ -15,9 +15,9 @@ type CancelOrderSettings struct {
 }
 
 type ActiveOrders struct {
-	Success uint8                          `json:"success"`
-	Return  map[int]map[string]interface{} `json:"return"`
-	Error   string                         `json:"error"`
+	Success uint8                             `json:"success"`
+	Return  map[uint64]map[string]interface{} `json:"return"`
+	Error   string                            `json:"error"`
 }
 
 type TradeHistorySettings struct {
@@ -33,7 +33,7 @@ type TradeHistorySettings struct {
 
 func NewActiveOrders() ActiveOrders {
 	activeOrders := ActiveOrders{}
-	activeOrders.Return = make(map[int]map[string]interface{})
+	activeOrders.Return = make(map[uint64]map[string]interface{})
 	return activeOrders
 }
 
