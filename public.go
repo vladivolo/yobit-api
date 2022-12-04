@@ -77,6 +77,19 @@ func (api *PublicAPI) OpenInterest(symbol string) (float64, float64, error) {
 	return tdata.Sell, tdata.Buy, nil
 }
 
+// return first Ask & Bid
+func (api *PublicAPI) OpenInterests(symbols []string) (map[string]TData, error) {
+	ticker, err := api.Ticker(
+		&TickerSettings{
+			Pairs: symbols,
+		})
+	if err != nil {
+		return nil, err
+	}
+
+	return ticker.PairData, nil
+}
+
 // Ticker provides statistic data for the last 24 hours.
 func (api *PublicAPI) Ticker(t *TickerSettings) (Ticker, error) {
 	values, link := api.createLinkTicker(t)
