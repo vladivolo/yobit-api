@@ -3,7 +3,7 @@ package api
 import ()
 
 type TickerSettings struct {
-	Pair string `json:"pair"` // pair (example: ltc_btc)
+	Pairs []string `json:"pair"` // pair (example: ltc_btc-btc_usdt)
 }
 
 type Ticker struct {

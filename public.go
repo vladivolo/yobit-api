@@ -66,7 +66,7 @@ func (api *PublicAPI) Info() (Info, error) {
 func (api *PublicAPI) OpenInterest(symbol string) (float64, float64, error) {
 	ticker, err := api.Ticker(
 		&TickerSettings{
-			Pair: symbol,
+			Pairs: []string{symbol},
 		})
 	if err != nil {
 		return 0, 0, err
@@ -167,7 +167,8 @@ func (api *PublicAPI) createLinkInfo() (*url.Values, string) {
 
 func (api *PublicAPI) createLinkTicker(th *TickerSettings) (*url.Values, string) {
 	values := url.Values{}
-	link := PublicApiLink + "ticker" + "/" + th.Pair
+	pairs := strings.Join(th.Pairs, "-")
+	link := PublicApiLink + "ticker" + "/" + pairs
 
 	return &values, link
 
