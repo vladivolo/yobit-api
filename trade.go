@@ -129,6 +129,8 @@ func (api *TradeAPI) TradeHistory(t *TradeHistorySettings) (TradeHistory, error)
 		return TradeHistory{}, err
 	}
 
+	fmt.Println(string(body))
+
 	tradeHistory := NewTradeHistory()
 	err = json.Unmarshal(body, &tradeHistory)
 	if err != nil {
